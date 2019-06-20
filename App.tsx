@@ -11,6 +11,7 @@ import { setContext } from 'apollo-link-context';
 import { ApolloClient, InMemoryCache, HttpLink, from, split } from 'apollo-client-preset';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
+import { config } from './config';
 
 const { width, height } = Dimensions.get('window');
 console.ignoredYellowBox = ['[GraphQL error]: Message'];
@@ -32,9 +33,9 @@ const mapStateToProps: MapStateToProps<{ state: NavigationState }, {}, ReduxStor
 
 const AppWithNavigationState = connect(mapStateToProps)(ReduxifiedNavigator as any);
 
-const httpLink = new HttpLink({ uri: 'http://localhost:3000' });
+const httpLink = new HttpLink({ uri: `http://${config.address}:${config.port}` });
 const wsLink = new WebSocketLink({
-  uri: 'http://localhost:3000/subscriptions',
+  uri: `http://${config.address}:${config.port}/subscriptions`,
   options: {
     reconnect: true, connectionParams: async () => {
       const sessionUser: SessionUser = JSON.parse(await AsyncStorage.getItem('sessionUser'));
