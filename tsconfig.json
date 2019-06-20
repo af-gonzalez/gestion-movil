@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react-native",
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016"
+    ],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "strict": true,
+    "target": "esnext",
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "src/app/components/*"
+      ],
+      "@screens/*": [
+        "src/app/screens/*"
+      ],
+      "@constants/*": [
+        "src/config/constants/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ],
+      "@graphql/*": [
+        "src/graphql/*"
+      ]
+    },
+    "typeRoots": [
+      "src/types.d.ts"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

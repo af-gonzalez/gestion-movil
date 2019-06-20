@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "ruteo-tc-mobile",
+    "description": "This project is really great.",
+    "slug": "ruteo-tc-mobile",
+    "privacy": "public",
+    "sdkVersion": "32.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCAyWq7WYJ-F2sj3EFrK8ZGR7a_WFI6kns"
+        }
+      }
+    }
+  }
+}
