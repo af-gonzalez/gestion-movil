@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { addSupply } from '../../../../store/supplies';
-import { connect, MapStateToProps } from 'react-redux';
+import { connect, MapDispatchToProps, MapStateToProps } from 'react-redux';
 import { Modal, SelectBox } from '@components/commons';
 
 type OwnProps = {
@@ -30,8 +30,12 @@ type ComponentState = {
 const mapStateToProps: MapStateToProps<PropsFromState, OwnProps, ReduxStore> =
   ({ supplies: { types } }) => ({ suppliesTypes: types });
 
+const mapDispatchToProps: MapDispatchToProps<PropsFromDispatch, OwnProps> = dispatch => ({
+  addSupply: (supply: Supply) => dispatch(addSupply(supply)),
+});
+
 // @ts-ignore
-@connect(mapStateToProps, { addSupply })
+@connect(mapStateToProps, mapDispatchToProps)
 export class AddSupplyModal extends React.Component<ComponentProps, ComponentState> {
   modal = React.createRef<any>();
   state: ComponentState = {

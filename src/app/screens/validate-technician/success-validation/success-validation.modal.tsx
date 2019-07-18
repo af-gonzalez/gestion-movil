@@ -7,6 +7,7 @@ import { Colors, FontSizes } from '../../../../config/constants/styles';
 type ComponentProps = {
   visible: boolean;
   onClose: () => void;
+  user: User;
 };
 
 export class SuccessValidationModal extends React.Component<ComponentProps> {
@@ -18,6 +19,7 @@ export class SuccessValidationModal extends React.Component<ComponentProps> {
   }
 
   render() {
+    const { user } = this.props;
     return (
       <Modal
         visible={this.props.visible}
@@ -25,34 +27,27 @@ export class SuccessValidationModal extends React.Component<ComponentProps> {
         successText="Finalizar"
         ref={this.modal}
       >
-        <View style={styles.modalContent}>
-          <Image
-            style={styles.avatarImage}
-            source={require('../../../../../assets/girl2.jpg')} />
-          <Text style={styles.name}>Leidy Carolina Gonzalez</Text>
-          <View style={{
-            alignSelf: 'stretch',
-            marginHorizontal: 10,
-            height: 1,
-            backgroundColor: Colors.complementary,
-            marginVertical: 5,
-          }} />
-          <DividedInfo
-            title="Cargo"
-            description="Operador tecnico"
-            fontSize={FontSizes.small}
-          />
-          <DividedInfo
-            title="No. Carnet"
-            description="45660"
-            fontSize={FontSizes.small}
-          />
-          <DividedInfo
-            title="Cedula"
-            description="1024897654"
-            fontSize={FontSizes.small}
-          />
-        </View>
+        {user && (
+          <View style={styles.modalContent}>
+            <Image
+              style={styles.avatarImage}
+              source={{ uri: user.profileImage }} />
+            <Text style={styles.name}>{user.fullname}</Text>
+            <View style={{
+              alignSelf: 'stretch',
+              marginHorizontal: 10,
+              height: 1,
+              backgroundColor: Colors.complementary,
+              marginVertical: 5,
+            }} />
+            <DividedInfo
+              title="Cargo"
+              description="Operador tecnico"
+              fontSize={FontSizes.small}
+            />
+          </View>
+        )
+        }
       </Modal>
     );
   }

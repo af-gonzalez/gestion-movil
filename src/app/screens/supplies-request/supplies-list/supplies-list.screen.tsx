@@ -12,6 +12,17 @@ import { styles } from './supplies-list.styles';
 import { Colors, Icons } from '../../../../config/constants/styles';
 import { Text, View } from 'react-native';
 import { AddSupplyModal } from '../add-supply';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+
+const saveRequest = gql`
+  mutation request{
+    saveRequest{
+      success
+      message
+    }
+  }
+`;
 
 type PropsFromState = {
   supplies: Supply[];
@@ -130,13 +141,26 @@ export class SuppliesListScreen extends React.Component<ComponentProps, Componen
           }
         </Content>
         <Footer>
-          <Button
-            text="Realizar Solicitud"
-            icon={Icons.forward}
-            disabled={supplies.length === 0}
-            onPress={this.openRequestConfirmationModal}
-            withLoading
-          />
+          <Mutation mutation={saveRequest}>
+            {(saveR, { loading }) => (
+              <React.Fragment>
+                <Button
+                  text="Realizar Solicitud"
+                  icon={Icons.forward}
+                  disabled={supplies.length === 0}
+                  onPress={this.openRequestConfirmationModal}
+                  withLoading
+                  loading={loading}
+                />
+                <ConfirmationMessageModal
+                  visible={this.state.showRequestConfirmation}
+                  message="¿Desea realizar la solicitud con los elementos seleccionados?"
+                  onConfirm={() => saveR().then(this.submitRequest)}
+                  onCancel={this.closeRequestConfirmationModal}
+                />
+              </React.Fragment>
+            )}
+          </Mutation>
         </Footer>
         <AddSupplyModal
           visible={this.state.showAddSupplyModal}
@@ -146,12 +170,6 @@ export class SuppliesListScreen extends React.Component<ComponentProps, Componen
           message="¿Desea eliminar el elemento seleccionado?"
           onConfirm={this.handleElementDeletion}
           onCancel={this.closeConfirmationModal} />
-        <ConfirmationMessageModal
-          visible={this.state.showRequestConfirmation}
-          message="¿Desea realizar la solicitud con los elementos seleccionados?"
-          onConfirm={this.submitRequest}
-          onCancel={this.closeRequestConfirmationModal}
-        />
         <InfoMessageModal
           visible={this.state.showSuccessMessageModal}
           message="Su solicitud ha sido procesada correctamente"
