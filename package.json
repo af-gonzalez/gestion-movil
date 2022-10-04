@@ -17,7 +17,7 @@
     "axios": "^0.18.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "d3": "^5.7.0",
-    "expo": "^32.0.1",
+    "expo": "^46.0.14",
     "expo-pixi": "^1.1.0",
     "firebase": "^6.1.0",
     "formik": "^1.5.1",
